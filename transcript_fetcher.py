@@ -21,13 +21,7 @@ def format_transcript(transcript,video_id):
         time_stamp = f"{int(minute)}:{int(second):02d}"
         json_string = {"time": time_stamp , "text":snippet.text}  
         data.append(json_string)
-    with open(file_name,'w') as f:
+    with open(f'data/'+file_name,'w') as f:
         json.dump(data, f, indent=4, ensure_ascii=False)        
 
 
-
-#video_url = "https://www.youtube.com/watch?v=dQw4w9WgXcQ&t=120s"
-
-#video_id = get_video_id(video_url)
-#transcript = get_transcript(video_id)
-#format_transcript(transcript,video_id)

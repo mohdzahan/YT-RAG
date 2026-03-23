@@ -15,14 +15,16 @@ embed_and_store(video_id)
 while True:
 
     qns = input("""
-        
-        What do you want to do?
-        1. Ask questions
-        2. Summarize video
-        3. Take notes
-        --> """)
+What do you want to do?
+                
+    1. Ask questions
+    2. Summarize video
+    3. Take notes
+    4. Exit
+                
+    --> """)
     
-    match qns:
+    match qns.lower():
         case "1":
             question = input("Ask a qns -> ")
             mode = input("Mode (strict/extended): ").strip().lower()

@@ -7,7 +7,7 @@ st = SentenceTransformer('BAAI/bge-small-en')
 cd = chromadb.PersistentClient(path="./chroma_db")
 
 def load_data(video_id):
-    with open(video_id+'_chunks.json','r') as f:
+    with open(f'data/'+video_id+'_chunks.json','r') as f:
         chunks = json.load(f)
         return chunks
     
@@ -38,4 +38,3 @@ def embed_and_store(video_id):
         print(f"Stored chunk {index}")
 
 
-#embed_and_store('some_other_video')

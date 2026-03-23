@@ -2,7 +2,7 @@ import json
 def chunk_transcript(video_id):
     buckets = {}
     chunks =[]
-    with open(video_id+'.json','r') as f:
+    with open(f"data/{video_id}.json",'r') as f:
         data = json.load(f)
 
     for line in data:
@@ -30,13 +30,7 @@ def chunk_transcript(video_id):
     }
         chunks.append(chunk)
     
-    with open(video_id+'_chunks.json','w') as f:
+    with open(f'data/'+video_id+'_chunks.json','w') as f:
         json.dump(chunks, f, indent=4, ensure_ascii=False)     
         
-
-
     return chunks
-
-    #print(data[0]['time'])
-
-#chunk_transcript('dQw4w9WgXcQ')

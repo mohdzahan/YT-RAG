@@ -1,5 +1,9 @@
 from query import query_chunks
 import ollama
+import os
+from dotenv import load_dotenv
+load_dotenv()
+model = os.getenv("OLLAMA_MODEL")
 
 def ask(question, mode = "strict"):
     chunk = query_chunks(question)
@@ -25,7 +29,7 @@ def ask(question, mode = "strict"):
                     Question: {question}"""
 
     response = ollama.chat(
-    model='llama3.2',
+        model=model,
     messages=[
         {"role": "user", "content": prompt}
     ]
@@ -33,4 +37,3 @@ def ask(question, mode = "strict"):
     print(response['message']['content'])
     return response
 
-#ask("who will never give you up?")
