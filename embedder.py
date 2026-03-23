@@ -13,7 +13,13 @@ def load_data(video_id):
     
 
 def embed_and_store(video_id):
-    collection = cd.get_or_create_collection("kt_videos")
+
+
+    try:
+        cd.delete_collection("kt_videos")
+    except:
+        pass
+    collection = cd.create_collection("kt_videos")
     chunks = load_data(video_id)
     for index, chunk in enumerate(chunks):
         embedding = st.encode(chunk['text'])
@@ -32,4 +38,4 @@ def embed_and_store(video_id):
         print(f"Stored chunk {index}")
 
 
-embed_and_store('some_other_video')
+#embed_and_store('some_other_video')

@@ -22,5 +22,5 @@ def format_results(res):
         print("----------")
 
 
-res = query_chunks("Never want to give you up")
-format_results(res)
+#res = query_chunks("Never want to give you up")
+#format_results(res)

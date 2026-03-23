@@ -39,4 +39,4 @@ def chunk_transcript(video_id):
 
     #print(data[0]['time'])
 
-chunk_transcript('dQw4w9WgXcQ')
+#chunk_transcript('dQw4w9WgXcQ')

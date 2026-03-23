@@ -22,4 +22,4 @@ def ask(question):
     print(response['message']['content'])
     return response
 
-ask("who will never give you up?")
+#ask("who will never give you up?")

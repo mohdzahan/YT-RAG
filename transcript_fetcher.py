@@ -26,8 +26,8 @@ def format_transcript(transcript,video_id):
 
 
 
-video_url = "https://www.youtube.com/watch?v=dQw4w9WgXcQ&t=120s"
-print()
-video_id = get_video_id(video_url)
-transcript = get_transcript(video_id)
-format_transcript(transcript,video_id)
+#video_url = "https://www.youtube.com/watch?v=dQw4w9WgXcQ&t=120s"
+
+#video_id = get_video_id(video_url)
+#transcript = get_transcript(video_id)
+#format_transcript(transcript,video_id)
