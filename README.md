@@ -1,6 +1,12 @@
-# YT-RAG 🎬
+# AskTube 🎬
 
-A fully local Retrieval Augmented Generation (RAG) pipeline for YouTube videos. Ask questions, summarize, and take notes from any YouTube video — all running on your machine with no data sent to external APIs.
+Ask questions, summarize, and take notes from any YouTube video. Runs fully local — no data sent to external APIs.
+
+---
+
+## Screenshot
+
+> 📸 **[ADD SCREENSHOT HERE: Full app UI — paste a screenshot of the Streamlit interface with a video loaded and a question answered]**
 
 ---
 
@@ -16,6 +22,12 @@ A fully local Retrieval Augmented Generation (RAG) pipeline for YouTube videos. 
 
 ---
 
+## Demo
+
+![Demo](assets/gif_rec.gif)
+
+---
+
 ## Tech Stack
 
 | Component | Tool |
@@ -24,6 +36,7 @@ A fully local Retrieval Augmented Generation (RAG) pipeline for YouTube videos. 
 | Embeddings | `sentence-transformers` (BAAI/bge-small-en) |
 | Vector DB | ChromaDB (local) |
 | LLM | Ollama (Llama 3.2, local) |
+| UI | Streamlit |
 | Language | Python 3.13 |
 
 ---
@@ -32,8 +45,8 @@ A fully local Retrieval Augmented Generation (RAG) pipeline for YouTube videos. 
 
 ### 1. Clone the repo
 ```bash
-git clone https://github.com/yourusername/YT-RAG.git
-cd YT-RAG
+git clone https://github.com/yourusername/AskTube.git
+cd AskTube
 ```
 
 ### 2. Create and activate virtual environment
@@ -66,31 +79,39 @@ CHROMA_PATH=./chroma_db
 ## Usage
 
 ```bash
-python main.py
+streamlit run app.py
 ```
 
+![App UI](assets/1.png)
+
 You will be prompted to:
-1. Enter a YouTube URL
-2. Choose what to do — ask questions, summarize, or take notes
+1. Paste a YouTube URL and hit **Process**
+2. Choose a tab — Ask, Summarize, or Notes
 3. For Q&A, choose between strict or extended mode
+
+![App UI](assets/2.png)
 
 **Strict mode** — answers only from video content. If the answer isn't in the video it will say so.
 
 **Extended mode** — uses video as primary source but supplements with the LLM's own knowledge. Indicates when going beyond video content.
+
+![App UI](assets/3.png)
 
 ---
 
 ## Project Structure
 
 ```
-YT-RAG/
-├── main.py                  ← Entry point, ties everything together
+AskTube/
+├── app.py                   ← Streamlit UI
+├── main.py                  ← Terminal entry point
 ├── transcript_fetcher.py    ← Fetches transcript from YouTube
 ├── chunker.py               ← Splits transcript into 60s chunks
 ├── embedder.py              ← Embeds chunks and stores in ChromaDB
 ├── query.py                 ← Semantic search over stored chunks
 ├── rag.py                   ← LLM Q&A with strict/extended mode
-├── summarizer.py            ← Video summarization and note taking
+├── summarizer.py            ← Video summarization
+├── note_taking.py           ← Structured note taking
 ├── .env                     ← Config (model name, paths etc.)
 ├── .gitignore               ← Excludes venv, .env, data/
 ├── requirements.txt         ← Project dependencies
@@ -118,7 +139,10 @@ Takes a question, embeds it using the same model, and searches ChromaDB for the 
 Takes the retrieved chunks and constructs a prompt for the LLM. In strict mode the LLM is constrained to answer only from the video content. In extended mode it can supplement with its own knowledge.
 
 **`summarizer.py`**
-Loads all chunks from a video and sends them to the LLM in one go with either a summarization or note-taking prompt. Notes are structured as bullet points by topic.
+Loads all chunks from a video and sends them to the LLM with a summarization prompt. Produces a concise structured summary covering main topics.
+
+**`note_taking.py`**
+Same as summarizer but with a note-taking prompt. Produces structured bullet points organized by topic — easy to reference later.
 
 ---
 
@@ -127,16 +151,16 @@ Loads all chunks from a video and sends them to the LLM in one go with either a 
 - **Multiple video support** — query across several videos at once, useful for comparing topics across different sources
 - **Topic/folder mapping** — auto-generate a topic index across all ingested videos so you can browse what each video covers without watching it
 - **Whisper fallback** — for videos without captions, use OpenAI Whisper locally to generate transcripts
-- **Streamlit UI** — replace the terminal interface with a proper web UI
 - **Podcast support** — extend ingestion to handle podcast RSS feeds and audio files
 - **Export notes** — save generated notes and summaries as markdown or PDF files
 - **Chunk size tuning** — make chunk window size configurable per video based on content density
+- **Chat history persistence** — save Q&A sessions per video for future reference
 
 ---
 
 ## Notes
 
 - Everything runs locally — no data is sent to external APIs
-- The `data/` folder and `chroma_db/` are gitignored — regenerate them by running `main.py`
-- First run will download the embedding model (~130MB) — subsequent runs use the cached version
-- Ollama must be running in the background before starting the pipeline
+- The `data/` folder and `chroma_db/` are gitignored — regenerate them by running the app
+- First run downloads the embedding model (~130MB) — subsequent runs use the cached version
+- Ollama must be running in the background before starting the app
