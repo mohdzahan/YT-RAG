@@ -4,11 +4,6 @@ Ask questions, summarize, and take notes from any YouTube video. Runs fully loca
 
 ---
 
-## Screenshot
-
-> 📸 **[ADD SCREENSHOT HERE: Full app UI — paste a screenshot of the Streamlit interface with a video loaded and a question answered]**
-
----
 
 ## What it does
 
